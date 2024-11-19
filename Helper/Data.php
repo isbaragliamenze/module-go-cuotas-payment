@@ -12,14 +12,14 @@ use \Magento\Framework\Url\EncoderInterface;
 use \Magento\Framework\Message\ManagerInterface;
 use \Magento\Checkout\Model\Session;
 use \Magento\Customer\Model\Session as CustomerSession; 
-
+use Exception;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const ENCRYPT = 1;
     const DECRYPT = 2;
-    protected $urlEncoder;
-    protected $urlDecoder;
+    protected $urlEncode;
+    protected $urlDecode;
     public $scopeConfig;
     public $order;
     public $store;
@@ -51,14 +51,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->urlDecode         = $urlDecoder;
         $this->messageManager    = $messageManager;
         $this->customerSession   = $customerSession;
-        $this->Session           = $session;
+        $this->session           = $session;
     }
 
 
     public function generateCheckoutUrl()
 	{
         if (!$this->isRedirect())
-            if ((int)$this->Session->getLastRealOrder()->getGrandTotal()>1000)
+            if ((int)$this->session->getLastRealOrder()->getGrandTotal()>1000)
             return $this->scopeConfig->getValue('web/secure/base_url',\Magento\Store\Model\ScopeInterface::SCOPE_STORE)."gocuotas/";
             else return $this->scopeConfig->getValue('web/secure/base_url',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         else
@@ -87,7 +87,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             curl_close($curl);
             $arre = json_decode($resp, true);
             $customer = $this->customerSession->getCustomer()->getEmail();
-            $increment_id = $this->Session->getLastRealOrder()->getIncrementId();
+            $increment_id = $this->session->getLastRealOrder()->getIncrementId();
             $order = $this->order
             ->create()
             ->loadByIncrementId($increment_id);
@@ -147,7 +147,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             curl_close($curl);
             $arre = json_decode($resp, true);
             $customer = $this->customerSession->getCustomer()->getEmail();
-            $increment_id = $this->Session->getLastRealOrder()->getIncrementId();
+            $increment_id = $this->session->getLastRealOrder()->getIncrementId();
             $order = $this->order
             ->create()
             ->loadByIncrementId($increment_id);
