@@ -7,6 +7,7 @@ use \Magento\Framework\Message\ManagerInterface;
 use \Magento\Checkout\Model\Cart;
 use \Magento\Checkout\Model\Session;
 use \Magento\Framework\App\Action\Context;
+use Exception;
 
 class Failure extends \Magento\Framework\App\Action\Action
 {

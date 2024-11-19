@@ -11,6 +11,8 @@ use \Magento\Framework\App\Config\ScopeConfigInterface;
 use \Magento\Framework\App\RequestInterface;
 use \Magento\Framework\App\Request\InvalidRequestException;
 use \FS\GoCuotas\Helper\Data;
+use \Psr\Log\LoggerInterface;
+use Exception;
 
 class Notification extends \Magento\Framework\App\Action\Action implements \Magento\Framework\App\CsrfAwareActionInterface
 {
@@ -21,6 +23,7 @@ class Notification extends \Magento\Framework\App\Action\Action implements \Mage
     protected $transaction;
     protected $scopeConfig;
     protected $helper;
+    protected $logger;
         /**
      * @param RequestInterface $request
      * @return InvalidRequestException|null
@@ -46,7 +49,8 @@ class Notification extends \Magento\Framework\App\Action\Action implements \Mage
         InvoiceService $invoiceService,
         InvoiceSender $invoiceSender,
         Transaction $transaction,
-        ScopeConfigInterface $scopeConfig
+        ScopeConfigInterface $scopeConfig,
+        LoggerInterface $logger
     ) {
         $this->context = $context;
         $this->order = $order;
@@ -55,6 +59,7 @@ class Notification extends \Magento\Framework\App\Action\Action implements \Mage
         $this->transaction    = $transaction;
         $this->scopeConfig = $scopeConfig;
         $this->helper = $helper;
+        $this->logger = $logger;
         parent::__construct($context);
     }
 
@@ -107,7 +112,7 @@ class Notification extends \Magento\Framework\App\Action\Action implements \Mage
                 }        
         } catch (Exception $e) {
             //echo $e->getMessage();
-            $logger->info($e->getMessage());
+            $this->logger->info($e->getMessage());
         }
     }
 }

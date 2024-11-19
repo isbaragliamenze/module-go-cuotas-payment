@@ -6,6 +6,7 @@ use \Magento\Framework\App\Action\Context;
 use \Magento\Sales\Model\Order;
 use \Magento\Framework\Exception\NotFoundException;
 use \FS\GoCuotas\Helper\Data;
+use Exception;
 
 class Cancel extends \Magento\Framework\App\Action\Action
 {

@@ -10,6 +10,7 @@ use \Magento\Framework\Exception\NotFoundException;
 use \Magento\Checkout\Model\Session;
 use \Magento\Sales\Model\Order\Email\Sender\InvoiceSender;
 use \Magento\Framework\App\Config\ScopeConfigInterface;
+use Exception;
 
 class Success extends \Magento\Framework\App\Action\Action
 {

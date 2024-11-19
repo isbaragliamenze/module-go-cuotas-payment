@@ -8,6 +8,7 @@ use \FS\GoCuotas\Helper\Data;
 class Redirect extends \Magento\Framework\App\Action\Action
 {
     protected $resultPageFactory;
+    protected $helper;
 
     public function __construct(
          Context $context,

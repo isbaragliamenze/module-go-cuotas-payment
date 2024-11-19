@@ -15,7 +15,8 @@ class Checkoutinit implements \Magento\Framework\Event\ObserverInterface
     protected $order;
     protected $cart;
     protected $responseFactory;
-    protected $prod;
+    protected $product;
+    protected $session;
     
     public function __construct(
     Order $order,
